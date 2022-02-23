@@ -106,6 +106,7 @@ print(n1.real)
 print(n2.real)
 
 # Inheritance in Python
+# https://www.codigofuente.org/herencia-en-python/
 class Vehicle:
 	def same_name_method(self):
 		print("This method is v")
@@ -122,6 +123,7 @@ class Motorbike(Vehicle):
 		print("This method is m")
 
 		Vehicle.same_name_method(self)
+		super().same_name_method() #elegant
 
 	def motor_method(self):
 		print("This method is Motorbike")
@@ -144,3 +146,239 @@ carro = Car(10,11)
 carro.vehicle_method()
 carro.car_method()
 carro.same_name_method()
+
+# multiple Inheritance
+class Base1:
+    pass
+
+class Base2:
+    pass
+
+class MultiDerived(Base1, Base2):
+    pass
+
+print(MultiDerived.mro())
+
+# multi-level Inheritance
+class Base:
+    pass
+
+class Derived1(Base):
+    pass
+
+class Derived2(Derived1):
+    pass
+
+print(Derived2.mro())
+
+
+#Example multi-level and multiple Inheritance
+
+class X: pass
+class Y: pass
+class Z: pass
+
+class A(X,Y): pass
+class B(Y,Z): pass
+
+class M(B,A,Z): pass
+
+print(M.mro())
+
+#SOLID
+# Single responsibility
+# Open-closed
+# Liskov substitution
+# Interface segregation 
+# Dependency inversion
+#https://twitter.com/ManuelZapata/status/1483642516901613568?t=DsgXQSppCWy5qpvthc97Wg&s=08
+#https://es.wikipedia.org/wiki/SOLID
+
+
+#Pthon Exception Handling:
+n1 = 10
+n2 = 0
+
+try:
+	print(n1/n2)
+except:
+	print("Error")
+
+# Iterators in Python 
+# For an object to be iterator need: iter and next
+number = [12,25,33,43]
+value = number.__iter__()
+
+nextvalue = value.__next__()
+print(nextvalue)
+
+nextvalue = value.__next__()
+print(nextvalue)
+
+nextvalue = value.__next__()
+print(nextvalue)
+
+#Other way
+number = [12,25,33,43]
+value_elegant = iter(number)
+
+nextvalue_elegant = next(value_elegant)
+print(nextvalue_elegant)
+
+nextvalue_elegant = next(value_elegant)
+print(nextvalue_elegant)
+
+nextvalue_elegant = next(value_elegant)
+print(nextvalue_elegant)
+
+
+#Generator
+def even_generator():
+	n=0
+	yield n
+
+	n+=2
+	yield n
+
+	n+=2
+	yield n
+
+
+	n+=2
+	yield n
+
+
+number = even_generator()
+print(next(number))
+print(next(number))
+print(next(number))
+print(next(number))
+
+def even_generatorx(max):
+	n=0
+
+
+	while(n<=max):
+		yield n
+		n+=2
+
+
+
+numberx = even_generatorx(4)
+print(next(numberx))
+print(next(numberx))
+print('end')
+
+
+def generate_fibonacci():
+	n1 = 0
+	n2 = 1
+
+	while True:
+		yield n1
+		n2, n1 = n1, n1+ n2
+		
+
+seq = generate_fibonacci()
+print(next(seq))
+print(next(seq))
+print(next(seq))
+print(next(seq))
+print(next(seq))
+print(next(seq))
+print(next(seq))
+print(next(seq))
+print(next(seq))
+
+#Decorators
+# is a functions that takes another function add some
+# functionallity to it and then return it
+print("\n*** Decorators ***")
+def inc(x):
+	return x + 1
+
+
+def operate(func, x):
+	result = func(x)
+	return result
+
+value = operate(inc, 10)
+print(value)
+
+
+def print_msg(message):
+	x = "Hello"
+
+	def other_message():
+		print(x , message)
+
+	other_message()
+
+print_msg("Python is awesome")
+
+
+
+def print_msgx(message):
+	x = "Hello"
+
+	def other_messagex():
+		print(x , message)
+
+	return other_messagex
+
+funcion = print_msgx("Python is awesome")
+funcion()
+
+
+def printer():
+	print("Hello world")
+
+def display_func(func):
+
+	def inner():
+		print("Executing", func.__name__)
+		func()
+		print("End")
+
+	return inner
+
+decorator = display_func(printer)
+decorator()
+
+
+#Elegant way
+def display_funcx(func):
+
+	def inner():
+		print("Executing", func.__name__)
+		func()
+		print("End")
+
+	return inner
+
+@display_funcx
+def printerx():
+	print("Hello world")
+
+
+printerx()
+
+
+# Python lambda (anonymous) Functions
+# Are single line fuction, defined without a name
+print("\n Python lambda Functions")
+def multiple(x):
+	x = x*2
+	return x
+y = multiple(10)
+print(y)
+
+
+z = lambda n : n*2
+print(z(2))
+
+names = ["sdc", "dsaf", "aad", "safaf", "asdc", "dsaf",]
+
+names.sort(key = lambda x: len(x))
+
+print(names)
